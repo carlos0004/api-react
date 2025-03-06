@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import AgGrid from "../Components/AgGrid";
 import Header from "../Components/Header";
 import useFetchData from "../hooks/useFetchData";
@@ -21,7 +22,7 @@ const Categorias = () => {
 			<Header seccion={"Categorias"} />
 			<main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex flex-col gap-4">
 				<div className="w-full flex justify-end">
-					<button className="rounded-md px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white shadow-md">Crear</button>
+					<Link to="/create" className="rounded-md px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white shadow-md">Crear</Link>
 				</div>
 				<AgGrid rowData={rowData} colDefs={colDefs} defaultColDef={defaultColDef} />
 			</main>
