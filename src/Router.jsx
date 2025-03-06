@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import Autores from "./Pages/Autores";
-import Noticias from "./Pages/Noticias";
 import Layout from "./Components/Layout";
-import Categorias from "./Pages/Categorias";
 import Create from "./Components/Create";
+import Categorias from "./Pages/Categorias/Categorias";
+import Autores from "./Pages/Autores/Autores";
+import Noticias from "./Pages/Noticias/Noticias";
 
 export default function Router() {
     return (
