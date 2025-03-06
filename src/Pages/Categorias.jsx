@@ -1,0 +1,31 @@
+import AgGrid from "../Components/AgGrid";
+import Header from "../Components/Header";
+import useFetchData from "../hooks/useFetchData";
+
+const Categorias = () => {
+	const apiUrl = 'http://127.0.0.1:8000/api/categorias';
+	const { data: rowData, error } = useFetchData(apiUrl);
+
+	const colDefs = [
+		{ field: "id" },
+		{ field: "nombre", },
+	];
+
+	const defaultColDef = {
+		flex: 1,
+	};
+	if (error) return <div className="text-center p-4 text-red-500">{error}</div>;
+
+	return (
+		<>
+			<Header seccion={"Categorias"} />
+			<main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex flex-col gap-4">
+				<div className="w-full flex justify-end">
+					<button className="rounded-md px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white shadow-md">Crear</button>
+				</div>
+				<AgGrid rowData={rowData} colDefs={colDefs} defaultColDef={defaultColDef} />
+			</main>
+		</>
+	)
+}
+export default Categorias;
