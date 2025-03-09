@@ -1,6 +1,7 @@
 import AgGrid from "../../Components/AgGrid";
+import CreateButton from "../../Components/CreateButton";
 import Header from "../../Components/Header";
-import useFetchData from "../../hooks/useFetchData";
+import useFetchData from "../../utils/useFetchData";
 
 const Autores = () => {
     const apiUrl = "http://127.0.0.1:8000/api/autores";
@@ -16,7 +17,8 @@ const Autores = () => {
     return (
         <>
             <Header seccion={"Autores"} />
-            <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex flex-col gap-4">
+                <CreateButton route={"/autores/create"} />
                 <AgGrid rowData={rowData} colDefs={colDefs} defaultColDef={defaultColDef} />
             </main>
         </>

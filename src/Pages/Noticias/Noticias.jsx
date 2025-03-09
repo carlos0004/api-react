@@ -1,6 +1,7 @@
 import AgGrid from "../../Components/AgGrid";
+import CreateButton from "../../Components/CreateButton";
 import Header from "../../Components/Header";
-import useFetchData from "../../hooks/useFetchData";
+import useFetchData from "../../utils/useFetchData";
 
 const Noticias = () => {
     const apiUrl = "http://127.0.0.1:8000/api/noticias";
@@ -15,7 +16,8 @@ const Noticias = () => {
     return (
         <>
             <Header seccion={"Noticias"} />
-            <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex flex-col gap-4">
+                <CreateButton route={"/noticias/create"} />
                 <AgGrid rowData={rowData} colDefs={colDefs} defaultColDef={defaultColDef} />
             </main>
         </>
