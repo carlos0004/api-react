@@ -4,6 +4,8 @@ import Header from "../../Components/Header";
 import create from "../../utils/create";
 
 const CreateCategory = () => {
+    console.log("hola tus muertos");
+
     const apiUrl = "http://127.0.0.1:8000/api/categorias";
     const navigate = useNavigate();
 
