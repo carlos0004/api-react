@@ -1,16 +1,21 @@
 import { useNavigate } from "react-router";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
-import create from "../../utils/create";
+import api from "../../utils/api";
 
 const CreateAutor = () => {
     const apiUrl = "http://127.0.0.1:8000/api/autores";
     const navigate = useNavigate();
     const handleCreate = async (formData) => {
-        console.log(formData);
-        const response = await create(apiUrl, formData);
-        console.log(response);
-        if (response) navigate("/autores");
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        };
+        const response = await api(apiUrl, options);
+        if (!response.error) navigate("/autores");
     };
 
     return (

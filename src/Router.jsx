@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import Layout from "./Components/Layout";
-import Create from "./Components/Create";
 import Categorias from "./Pages/Categorias/Categorias";
 import Autores from "./Pages/Autores/Autores";
 import Noticias from "./Pages/Noticias/Noticias";
@@ -17,7 +16,6 @@ export default function Router() {
                     <Route path="/noticias/create" element={<CreateNotice />} />
                     <Route path="/categorias" element={<Categorias />} />
                     <Route path="/categorias/create" element={<CreateCategory />} />
-                    <Route path="/create" element={<Create />} />
                     <Route path="/autores" element={<Autores />} />
                     <Route path="/autores/create" element={<CreateAutor />} />
                 </Route>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
-import create from "../../utils/create";
+import create from "../../utils/api";
 import { useNavigate } from "react-router";
+import api from "../../utils/api";
 
 const CreateNotice = () => {
     const navigator = useNavigate();
@@ -39,11 +40,17 @@ const CreateNotice = () => {
         fetchAutores();
         fetchCategorias();
     }, [])
-    const handleCreate = async (formData) => {
-        const response = await create(apiUrl, formData)
-        console.log(response);
 
-        if (response) navigator("/");
+    const handleCreate = async (formData) => {
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        };
+        const response = await api(apiUrl, options);
+        if (!response.error) navigator("/");
 
     };
 
