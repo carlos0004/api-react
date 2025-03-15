@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
 import Header from "../../Components/Header";
 import api from "../../utils/api";
-import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
-const CreateNotice = () => {
+const UpdateNotice = () => {
+    const { id } = useParams();
     const navigator = useNavigate();
-    const apiUrl = "http://127.0.0.1:8000/api/noticias";
+    const apiUrl = `http://127.0.0.1:8000/api/noticias/${id}`;
     const apiUrlAutores = "http://127.0.0.1:8000/api/autores";
     const apiUrlCategorias = "http://127.0.0.1:8000/api/categorias";
     const [autores, setAutores] = useState([]);
@@ -16,38 +17,52 @@ const CreateNotice = () => {
         register,
         handleSubmit,
         formState: { errors },
+        setValue,
     } = useForm();
 
     useEffect(() => {
-        const fetchAutores = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch(apiUrlAutores);
-                if (response.ok) {
-                    const result = await response.json();
+                // Fetch authors
+                const autoresResponse = await fetch(apiUrlAutores);
+                if (autoresResponse.ok) {
+                    const result = await autoresResponse.json();
                     setAutores(result.result);
                 }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        const fetchCategorias = async () => {
-            try {
-                const response = await fetch(apiUrlCategorias);
-                if (response.ok) {
-                    const result = await response.json();
+
+                // Fetch categories
+                const categoriasResponse = await fetch(apiUrlCategorias);
+                if (categoriasResponse.ok) {
+                    const result = await categoriasResponse.json();
                     setCategorias(result.result);
+                }
+                // Fetch notice data
+                const noticeResponse = await api(apiUrl, { method: "GET" });
+                if (!noticeResponse.error) {
+                    setValue("titulo", noticeResponse.result.titulo);
+                    setValue("contenido", noticeResponse.result.contenido);
+                    setValue("id_autor", noticeResponse.result.id_autor);
+                    setValue("id_categoria", noticeResponse.result.id_categoria);
+                } else {
+                    toast.error(noticeResponse.error, {
+                        position: "top-center",
+                    });
+                    navigator("/");
+                    return;
                 }
             } catch (error) {
                 console.log(error);
+                toast.error("Error al cargar los datos", {
+                    position: "top-center",
+                });
             }
         };
-        fetchAutores();
-        fetchCategorias();
-    }, []);
+        fetchData();
+    }, [id]);
 
     const onSubmit = async (data) => {
         const options = {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -56,7 +71,7 @@ const CreateNotice = () => {
         const response = await api(apiUrl, options);
         if (!response.error) {
             navigator("/");
-            toast.success("Noticia creada con exito", {
+            toast.success("Noticia actualizada con éxito", {
                 position: "top-center",
             });
         } else {
@@ -68,7 +83,7 @@ const CreateNotice = () => {
 
     return (
         <>
-            <Header seccion={"Crea una noticia"} />
+            <Header seccion={"Actualizar noticia"} />
             <div className="max-w-2xl mx-auto p-6">
                 <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded-2xl px-8 pt-6 pb-8 mb-4">
                     <div className="mb-4">
@@ -83,9 +98,7 @@ const CreateNotice = () => {
                             type="text"
                             placeholder="Título de la noticia"
                         />
-
                         {errors.titulo && <p className="text-red-500 text-xs italic mt-2">{errors.titulo.message}</p>}
-                        {console.log(errors)}
                     </div>
 
                     <div className="mb-4">
@@ -128,7 +141,7 @@ const CreateNotice = () => {
 
                     <div className="flex items-center justify-end">
                         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            Create Notice
+                            Update Notice
                         </button>
                     </div>
                 </form>
@@ -137,4 +150,4 @@ const CreateNotice = () => {
     );
 };
 
-export default CreateNotice;
+export default UpdateNotice;

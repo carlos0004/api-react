@@ -4,17 +4,33 @@ import CreateButton from "../../Components/CreateButton";
 import Header from "../../Components/Header";
 import api from "../../utils/api";
 import Loader from "../../Components/Loader";
-import { set } from "react-hook-form";
+import DeleteButton from "../../Components/DeleteButton";
+import UpdateButton from "../../Components/UpdateButton";
 
 const Noticias = () => {
+    const [noticias, setNoticias] = useState([]);
+    const [error, setError] = useState(null);
     const apiUrl = "http://127.0.0.1:8000/api/noticias";
-    const colDefs = [{ field: "id" }, { field: "titulo" }, { field: "contenido" }, { field: "nombre_categoria", headerName: "Categoria" }, { field: "nombre_autor", headerName: "Autor" }];
+    const colDefs = [
+        { field: "id" },
+        { field: "titulo" },
+        { field: "contenido" },
+        { field: "nombre_categoria", headerName: "Categoria" },
+        { field: "nombre_autor", headerName: "Autor" },
+        {
+            field: "Acciones",
+            cellRenderer: (params) => (
+                <div className="flex gap-2">
+                    <UpdateButton route={`/noticias/update/${params.data.id}`} />
+                    <DeleteButton {...params} apiUrl={apiUrl} setData={setNoticias} />
+                </div>
+            ),
+        },
+    ];
 
     const defaultColDef = {
         flex: 1,
     };
-    const [noticias, setNoticias] = useState([]);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {

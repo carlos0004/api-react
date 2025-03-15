@@ -4,15 +4,29 @@ import CreateButton from "../../Components/CreateButton";
 import Header from "../../Components/Header";
 import api from "../../utils/api";
 import Loader from "../../Components/Loader";
+import DeleteButton from "../../Components/DeleteButton";
+import UpdateButton from "../../Components/UpdateButton";
 
 const Autores = () => {
     const apiUrl = "http://127.0.0.1:8000/api/autores";
-    const colDefs = [{ field: "id" }, { field: "nombre" }];
+    const [autores, setAutores] = useState([]);
+    const [error, setError] = useState(null);
+    const colDefs = [
+        { field: "id" },
+        { field: "nombre" },
+        {
+            field: "Acciones",
+            cellRenderer: (params) => (
+                <div className="flex gap-2">
+                    <UpdateButton route={`/autores/update/${params.data.id}`} />
+                    <DeleteButton {...params} apiUrl={apiUrl} setData={setAutores} />
+                </div>
+            ),
+        },
+    ];
     const defaultColDef = {
         flex: 1,
     };
-    const [autores, setAutores] = useState([]);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {

@@ -1,4 +1,3 @@
-
 const Header = ({ seccion }) => {
     return (
         <>
@@ -8,6 +7,6 @@ const Header = ({ seccion }) => {
                 </div>
             </header>
         </>
-    )
-}
+    );
+};
 export default Header;

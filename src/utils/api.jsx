@@ -1,12 +1,10 @@
-
 const api = async (apiUrl, options) => {
-
     try {
         const response = await fetch(apiUrl, options);
         const result = await response.json();
 
         if (!response.ok) {
-            return { error: result.message }
+            return { error: result.message };
         }
         console.log(result);
 
@@ -14,7 +12,6 @@ const api = async (apiUrl, options) => {
     } catch (err) {
         console.error(err.message);
     }
-
 };
 
 export default api;

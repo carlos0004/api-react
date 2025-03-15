@@ -4,15 +4,29 @@ import CreateButton from "../../Components/CreateButton";
 import api from "../../utils/api";
 import { useEffect, useState } from "react";
 import Loader from "../../Components/Loader";
+import DeleteButton from "../../Components/DeleteButton";
+import UpdateButton from "../../Components/UpdateButton";
 
 const Categorias = () => {
     const apiUrl = "http://127.0.0.1:8000/api/categorias";
-    const colDefs = [{ field: "id" }, { field: "nombre" }];
+    const [categorias, setCategorias] = useState([]);
+    const [error, setError] = useState(null);
+    const colDefs = [
+        { field: "id" },
+        { field: "nombre" },
+        {
+            field: "Acciones",
+            cellRenderer: (params) => (
+                <div className="flex gap-2">
+                    <UpdateButton route={`/categorias/update/${params.data.id}`} />
+                    <DeleteButton {...params} apiUrl={apiUrl} setData={setCategorias} />
+                </div>
+            ),
+        },
+    ];
     const defaultColDef = {
         flex: 1,
     };
-    const [categorias, setCategorias] = useState([]);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
