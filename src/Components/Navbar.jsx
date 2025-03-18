@@ -12,11 +12,7 @@ const Navbar = () => {
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center">
                         <Link to="/" className="shrink-0">
-                            <img
-                                className="size-8"
-                                src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                                alt="Logo"
-                            />
+                            <img className="size-8" src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Logo" />
                         </Link>
                         <div className="hidden md:block">
                             <Menu />
@@ -28,11 +24,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Botón de menú móvil */}
-                    <button
-                        type="button"
-                        className="md:hidden bg-gray-800 p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    >
+                    <button type="button" className="md:hidden bg-gray-800 p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                         <span className="sr-only">Abrir menú</span>
                         {isMobileMenuOpen ? (
                             <svg className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
