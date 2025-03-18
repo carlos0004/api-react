@@ -13,7 +13,7 @@ const Menu = ({ mobile = false }) => {
 
     return (
         <div className={mobile ? "space-y-1 px-2 pt-2 pb-3 sm:px-3" : "ml-10 flex items-baseline space-x-4"}>
-            {!user ? (
+            {user ? (
                 <>
                     <Link to="/" className={getLinkClass(["/", "/noticias/create"])}>
                         Noticias

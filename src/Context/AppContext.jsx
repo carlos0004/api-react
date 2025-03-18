@@ -6,7 +6,6 @@ export const AppContext = createContext();
 export default function AppProvider({ children }) {
     const [token, setToken] = useState(localStorage.getItem("token"));
     const [user, setUser] = useState(null);
-    c;
     async function getUser() {
         const response = await api("/api/user", {
             headers: {

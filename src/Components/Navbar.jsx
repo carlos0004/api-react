@@ -1,10 +1,12 @@
 import { Link } from "react-router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import UserMenu from "./UserMenu";
 import Menu from "./Menu";
+import { AppContext } from "../Context/AppContext";
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { user } = useContext(AppContext);
 
     return (
         <nav className="bg-gray-800">
@@ -19,9 +21,7 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className="hidden md:block">
-                        <UserMenu />
-                    </div>
+                    <div className="hidden md:block">{user && <div className="text-white">Hola, {user.name} 😊</div>}</div>
 
                     {/* Botón de menú móvil */}
                     <button type="button" className="md:hidden bg-gray-800 p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
