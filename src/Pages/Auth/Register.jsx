@@ -4,6 +4,7 @@ import { AppContext } from "../../Context/AppContext";
 import { useContext } from "react";
 import api from "../../utils/api";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const { setToken } = useContext(AppContext);
@@ -26,13 +27,16 @@ const Register = () => {
             setToken(response.token);
             navigate("/");
         } else {
-            console.log(response.message);
+            console.log(response.error);
+            toast.error(response.error, {
+                position: "top-center",
+            });
         }
     };
 
     return (
         <>
-            <Header seccion={"Registrase"} />
+            <Header seccion={"Registro"} />
             <div className="max-w-2xl mx-auto p-6">
                 <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded-2xl px-8 pt-6 pb-8 mb-4">
                     <div className="mb-4">
@@ -91,7 +95,7 @@ const Register = () => {
                         {errors.password_confirmation && <p className="text-red-500 text-xs italic mt-2">{errors.password_confirmation.message}</p>}
                     </div>
                     <button type="submit" className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Iniciar sesión
+                        Registrarse
                     </button>
                 </form>
             </div>
