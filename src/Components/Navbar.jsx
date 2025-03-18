@@ -1,29 +1,14 @@
 import { Link, useNavigate } from "react-router";
 import { useContext, useState } from "react";
-import UserMenu from "./UserMenu";
 import Menu from "./Menu";
 import { AppContext } from "../Context/AppContext";
 import { BiLogOut } from "react-icons/bi"; // Add this import at the top
-import api from "../utils/api";
+import LogOutButton from "./LogOutButton";
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const { user, token, setToken, setUser } = useContext(AppContext);
+    const { user } = useContext(AppContext);
     const navigate = useNavigate();
-    const handleLogout = async () => {
-        const response = await api("/api/logout", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        if (!response.error) {
-            localStorage.removeItem("token");
-            setUser(null);
-            setToken(null);
-            navigate("/");
-        }
-    };
 
     return (
         <nav className="bg-gray-800">
@@ -42,9 +27,7 @@ const Navbar = () => {
                         {user && (
                             <div className="flex items-center gap-4 text-white">
                                 <div>Hola, {user.name} 😊</div>
-                                <button onClick={handleLogout} className="hover:text-gray-300 transition-colors" title="Cerrar sesión">
-                                    <BiLogOut className="size-6" />
-                                </button>
+                                <LogOutButton />
                             </div>
                         )}
                     </div>
