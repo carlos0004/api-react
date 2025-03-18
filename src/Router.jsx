@@ -1,5 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router";
 import Layout from "./Components/Layout";
+import { AppContext } from "./Context/AppContext";
+import { useContext } from "react";
 import Categorias from "./Pages/Categorias/Categorias";
 import Autores from "./Pages/Autores/Autores";
 import Noticias from "./Pages/Noticias/Noticias";
@@ -12,6 +14,14 @@ import UpdateAuthor from "./Pages/Autores/UpdateAuthor";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 
+const ProtectedRoute = ({ children }) => {
+    const { user } = useContext(AppContext);
+    if (!user) {
+        return <Navigate to="/login" />;
+    }
+    return children;
+};
+
 export default function Router() {
     return (
         <BrowserRouter>
@@ -19,15 +29,79 @@ export default function Router() {
                 <Route element={<Layout />}>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/" element={<Noticias />} />
-                    <Route path="/noticias/create" element={<CreateNotice />} />
-                    <Route path="/noticias/update/:id" element={<UpdateNotice />} />
-                    <Route path="/categorias" element={<Categorias />} />
-                    <Route path="/categorias/create" element={<CreateCategory />} />
-                    <Route path="/categorias/update/:id" element={<UpdateCategory />} />
-                    <Route path="/autores" element={<Autores />} />
-                    <Route path="/autores/create" element={<CreateAutor />} />
-                    <Route path="/autores/update/:id" element={<UpdateAuthor />} />
+
+                    <Route
+                        path="/"
+                        element={
+                            <ProtectedRoute>
+                                <Noticias />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/noticias/create"
+                        element={
+                            <ProtectedRoute>
+                                <CreateNotice />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/noticias/update/:id"
+                        element={
+                            <ProtectedRoute>
+                                <UpdateNotice />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/categorias"
+                        element={
+                            <ProtectedRoute>
+                                <Categorias />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/categorias/create"
+                        element={
+                            <ProtectedRoute>
+                                <CreateCategory />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/categorias/update/:id"
+                        element={
+                            <ProtectedRoute>
+                                <UpdateCategory />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/autores"
+                        element={
+                            <ProtectedRoute>
+                                <Autores />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/autores/create"
+                        element={
+                            <ProtectedRoute>
+                                <CreateAutor />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/autores/update/:id"
+                        element={
+                            <ProtectedRoute>
+                                <UpdateAuthor />
+                            </ProtectedRoute>
+                        }
+                    />
                 </Route>
             </Routes>
         </BrowserRouter>
