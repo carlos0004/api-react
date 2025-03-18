@@ -1,12 +1,29 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useContext, useState } from "react";
 import UserMenu from "./UserMenu";
 import Menu from "./Menu";
 import { AppContext } from "../Context/AppContext";
+import { BiLogOut } from "react-icons/bi"; // Add this import at the top
+import api from "../utils/api";
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const { user } = useContext(AppContext);
+    const { user, token, setToken, setUser } = useContext(AppContext);
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+        const response = await api("/api/logout", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!response.error) {
+            localStorage.removeItem("token");
+            setUser(null);
+            setToken(null);
+            navigate("/");
+        }
+    };
 
     return (
         <nav className="bg-gray-800">
@@ -21,8 +38,16 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className="hidden md:block">{user && <div className="text-white">Hola, {user.name} 😊</div>}</div>
-
+                    <div className="hidden md:block">
+                        {user && (
+                            <div className="flex items-center gap-4 text-white">
+                                <div>Hola, {user.name} 😊</div>
+                                <button onClick={handleLogout} className="hover:text-gray-300 transition-colors" title="Cerrar sesión">
+                                    <BiLogOut className="size-6" />
+                                </button>
+                            </div>
+                        )}
+                    </div>
                     {/* Botón de menú móvil */}
                     <button type="button" className="md:hidden bg-gray-800 p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                         <span className="sr-only">Abrir menú</span>
