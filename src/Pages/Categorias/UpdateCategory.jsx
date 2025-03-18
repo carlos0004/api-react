@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const UpdateCategory = () => {
     const { id } = useParams();
-    const apiUrl = `http://127.0.0.1:8000/api/categorias/${id}`;
+    const apiUrl = `/api/categorias/${id}`;
     const navigate = useNavigate();
     const {
         register,

@@ -8,7 +8,7 @@ import DeleteButton from "../../Components/DeleteButton";
 import UpdateButton from "../../Components/UpdateButton";
 
 const Categorias = () => {
-    const apiUrl = "http://127.0.0.1:8000/api/categorias";
+    const apiUrl = "/api/categorias";
     const [categorias, setCategorias] = useState([]);
     const [error, setError] = useState(null);
     const colDefs = [

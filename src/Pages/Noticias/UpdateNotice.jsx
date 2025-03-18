@@ -8,9 +8,9 @@ import { toast } from "react-toastify";
 const UpdateNotice = () => {
     const { id } = useParams();
     const navigator = useNavigate();
-    const apiUrl = `http://127.0.0.1:8000/api/noticias/${id}`;
-    const apiUrlAutores = "http://127.0.0.1:8000/api/autores";
-    const apiUrlCategorias = "http://127.0.0.1:8000/api/categorias";
+    const apiUrl = `/api/noticias/${id}`;
+    const apiUrlAutores = "/api/autores";
+    const apiUrlCategorias = "/api/categorias";
     const [autores, setAutores] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const {

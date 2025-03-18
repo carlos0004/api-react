@@ -5,7 +5,7 @@ import api from "../../utils/api";
 import { toast } from "react-toastify";
 
 const CreateAutor = () => {
-    const apiUrl = "http://127.0.0.1:8000/api/autores";
+    const apiUrl = "/api/autores";
     const navigate = useNavigate();
     const {
         register,

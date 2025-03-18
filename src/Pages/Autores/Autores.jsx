@@ -8,7 +8,7 @@ import DeleteButton from "../../Components/DeleteButton";
 import UpdateButton from "../../Components/UpdateButton";
 
 const Autores = () => {
-    const apiUrl = "http://127.0.0.1:8000/api/autores";
+    const apiUrl = "/api/autores";
     const [autores, setAutores] = useState([]);
     const [error, setError] = useState(null);
     const colDefs = [
@@ -31,6 +31,7 @@ const Autores = () => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await api(apiUrl, { method: "GET" });
+            console.log(response);
             if (!response.error) {
                 setAutores(response.result);
             } else {

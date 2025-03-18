@@ -5,7 +5,7 @@ import api from "../../utils/api";
 import { toast } from "react-toastify";
 
 const CreateCategory = () => {
-    const apiUrl = "http://127.0.0.1:8000/api/categorias";
+    const apiUrl = "/api/categorias";
     const navigate = useNavigate();
     const {
         register,

@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const UpdateAuthor = () => {
     const { id } = useParams();
-    const apiUrl = `http://127.0.0.1:8000/api/autores/${id}`;
+    const apiUrl = `/api/autores/${id}`;
     const navigate = useNavigate();
     const {
         register,

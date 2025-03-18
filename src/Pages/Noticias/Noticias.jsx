@@ -10,7 +10,7 @@ import UpdateButton from "../../Components/UpdateButton";
 const Noticias = () => {
     const [noticias, setNoticias] = useState([]);
     const [error, setError] = useState(null);
-    const apiUrl = "http://127.0.0.1:8000/api/noticias";
+    const apiUrl = "/api/noticias";
     const colDefs = [
         { field: "id" },
         { field: "titulo" },
