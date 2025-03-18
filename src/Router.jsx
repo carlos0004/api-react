@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router";
 import Layout from "./Components/Layout";
 import { AppContext } from "./Context/AppContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Categorias from "./Pages/Categorias/Categorias";
 import Autores from "./Pages/Autores/Autores";
 import Noticias from "./Pages/Noticias/Noticias";
@@ -17,7 +17,7 @@ import Register from "./Pages/Auth/Register";
 const ProtectedRoute = ({ children }) => {
     const { user } = useContext(AppContext);
     if (!user) {
-        return <Navigate to="/login" />;
+        return <Login />;
     }
     return children;
 };
